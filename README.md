@@ -1,7 +1,7 @@
 # @cawfree/react-jsx-provider
 A React `<Provider/>` used to reliably rendering dependency-aware JSX. Compatible with both `react` and `react-native`.
 
-## 🤔 AAbout
+## 🤔 About
 This library is built on top of the _awesome_ [`react-jsx-parser`](https://www.npmjs.com/package/react-jsx-parser), which is used to take a raw JSX string and render it as part of the React DOM, and adds a couple of utilities to enhance the _scalability_ and _portability_  of the JSX. This is done by defining a `package.json`-esque string which defines not only the content to render, but the necessary data dependencies of the runtime environment.
 
 If all of the dependencies are met by the runtime, the JSX string can be injected and rendered within the DOM; otherwise, it falls back to a `renderFailure` method, which allows your app to continue as normal. Since it is backed by a [`React.createContext`](https://reactjs.org/docs/context.html) `<Provider/>`, these runtime dependencies can be referenced or overriden throughout the nested hierarchy.
