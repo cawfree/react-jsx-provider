@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "react-native": "0.59.8"
+  },
+  "config": {
+    "react-native": {
+      "View": true,
+      "Text": true
+    }
+  },
+  "scripts": {
+    "ExampleComponent": "<View style={{ flex: 1, backgroundColor: 'blue' }} ><Text>{'hi'}</Text></View>"
+  }
+}
