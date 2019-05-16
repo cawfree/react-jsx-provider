@@ -1,0 +1,21 @@
+{
+  "name": "@cawfreee/react-jsx-provider",
+  "description": "JSX injection with dependency management.",
+  "version": "0.0.1",
+  "private": false,
+  "author": "Alex Thomas (@cawfree)",
+  "keywords": [
+    "react", "native", "react-native", "jsx", "provider", "dynamic"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": "https://github.com/Cawfree/react-jsx-provider",
+  "dependencies": {
+    "react-jsx-parser": "^1.16.1",
+    "semver": "^6.0.0"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6"
+  }
+}

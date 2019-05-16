@@ -7,10 +7,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "react-jsx-provider": "1.0.0",
     "react": "16.8.3",
-    "react-jsx-parser": "^1.16.1",
-    "react-native": "0.59.8",
-    "semver": "^6.0.0"
+    "react-native": "0.59.8"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",

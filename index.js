@@ -9,20 +9,12 @@ const {
 
 const DynamicJsx = React.createContext(null);
 
-const uniteWithError = (components, resolutionErrors, error) => ({
-  components,
-  resolutionErrors: [
-    ...resolutionErrors,
-    error,
-  ],
-});
-
 const extrapolate = (components, resolutionErrors, dependency, req = {}, pkg = {}) => {
   return Object.entries(((req.config || {})[dependency]) || {})
     .reduce(
       ({ components, resolutionErrors }, [Component, opts]) => {
         const impl = ((pkg.config || {})[dependency] || {})[Component];
-        // TODO: Support refined options/props implementation.
+        // TODO: Support refined options/props implementation. (Use an object/array instead of a boolean.)
         if (!!opts && !!impl) {
           return {
             components: {
@@ -32,13 +24,15 @@ const extrapolate = (components, resolutionErrors, dependency, req = {}, pkg = {
             resolutionErrors,
           };
         }
-        return uniteWithError(
+        return {
           components,
-          resolutionErrors,
-          new ReferenceError(
-            `Failed to resolve a runtime implementation for "<${Component}/>".`,
-          ),
-        );
+          resolutionErrors: [
+            ...resolutionErrors,
+            new ReferenceError(
+              `Failed to resolve a runtime implementation for "<${Component}/>".`,
+            ),
+          ],
+        };
       },
       {
         components,
@@ -47,7 +41,7 @@ const extrapolate = (components, resolutionErrors, dependency, req = {}, pkg = {
     );
 };
 
-function unite(req = {}, pkg = {}) {
+function synthesize(req = {}, pkg = {}) {
   const {
     dependencies,
     config,
@@ -80,13 +74,15 @@ function unite(req = {}, pkg = {}) {
             }
           }
         }
-        return uniteWithError(
+        return {
           components,
-          resolutionErrors,
-          new SyntaxError(
-            `Failed to instantiate "${dependency}" at request version "${reqVersion}".`,
-          ),
-        );
+          resolutionErrors: [
+            ...resolutionErrors,
+            new ReferenceError(
+              `Failed to instantiate "${dependency}" at request version "${reqVersion}".`,
+            ),
+          ],
+        };
       },
       {
         resolutionErrors: [],
@@ -99,20 +95,6 @@ function unite(req = {}, pkg = {}) {
     scripts,
   };
 }
-
-export const Provider = ({ request, runtime, renderFailure, children, ...extraProps }) => (
-  <DynamicJsx.Provider
-    value={{
-      ...unite(
-        request,
-        runtime,
-      ),
-      renderFailure,
-    }}
-  >
-    {children}
-  </DynamicJsx.Provider>
-);
 
 export const withDynamicJsx = Consumer => class ThemeConsumer extends React.Component {
   static contextType = DynamicJsx;
@@ -135,7 +117,7 @@ export const withDynamicJsx = Consumer => class ThemeConsumer extends React.Comp
   }
 };
 
-export default withDynamicJsx(
+export const ScriptProvider = withDynamicJsx(
   ({ script, components, renderFailure, resolutionErrors, scripts, ...extraProps }) => {
     const jsx = scripts[script];
     const resolvedErrors = [
@@ -162,4 +144,18 @@ export default withDynamicJsx(
     }
     return null;
   },
+);
+
+export default ({ request, runtime, renderFailure, children, ...extraProps }) => (
+  <DynamicJsx.Provider
+    value={{
+      ...synthesize(
+        request,
+        runtime,
+      ),
+      renderFailure,
+    }}
+  >
+    {children}
+  </DynamicJsx.Provider>
 );
