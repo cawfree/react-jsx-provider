@@ -1,15 +1,15 @@
 {
   "name": "@cawfree/react-jsx-provider",
-  "description": "JSX injection with dependency management.",
-  "version": "0.0.1",
-  "private": false,
+  "version": "1.0.0",
+  "description": "A React Provider for reliably rendering context-aware distributed JSX.",
+  "main": "index.js",
+  "repository": "https://github.com/Cawfree/react-jsx-provider",
   "author": "Alex Thomas (@cawfree)",
+  "license": "MIT",
   "keywords": [
     "react", "native", "react-native", "jsx", "provider", "dynamic"
   ],
-  "license": "MIT",
-  "main": "index.js",
-  "repository": "https://github.com/Cawfree/react-jsx-provider",
+  "private": false,
   "dependencies": {
     "react-jsx-parser": "^1.16.1",
     "semver": "^6.0.0"
