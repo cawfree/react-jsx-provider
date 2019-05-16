@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-  TouchableOpacity,
   View,
   Text,
-  Alert,
   StyleSheet,
+  Image,
 } from 'react-native';
 
 import ScriptComponent, { Provider } from './src';
@@ -52,6 +51,7 @@ export default class App extends React.Component {
         "react-native": {
           View,
           Text,
+          Image,
         },
       },
     };
@@ -67,7 +67,7 @@ export default class App extends React.Component {
           style={styles.container}
         >
           <ScriptComponent
-            script=""
+            script="Welcome"
           />
         </View>
       </Provider>

@@ -5,10 +5,11 @@
   "config": {
     "react-native": {
       "View": true,
-      "Text": true
+      "Text": true,
+      "Image": true
     }
   },
   "scripts": {
-    "ExampleComponent": "<View style={{ flex: 1, backgroundColor: 'blue' }} ><Text>{'hi'}</Text></View>"
+    "Welcome": "<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5FCFF'}}><Image source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png' }} style={{ width: 100, height: 100 }}/><Text style={{ fontSize: 20, textAlign: 'center', margin: 10}}>{'Welcome to React Native!'}</Text><Text style={{ textAlign: 'center', color: '#333333', marginBottom: 5}}>{'To get started, edit App.js'}</Text></View>"
   }
 }
