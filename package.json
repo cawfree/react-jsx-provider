@@ -1,5 +1,5 @@
 {
-  "name": "@cawfreee/react-jsx-provider",
+  "name": "@cawfree/react-jsx-provider",
   "description": "JSX injection with dependency management.",
   "version": "0.0.1",
   "private": false,
