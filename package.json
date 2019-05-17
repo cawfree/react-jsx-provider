@@ -1,7 +1,7 @@
 {
   "name": "@cawfree/react-jsx-provider",
-  "version": "1.0.1",
-  "description": "A React Provider for reliably rendering context-aware distributed JSX.",
+  "version": "1.0.2",
+  "description": "A React Provider for reliably rendering dependency-aware distributed JSX.",
   "main": "index.js",
   "repository": "https://github.com/Cawfree/react-jsx-provider",
   "author": "Alex Thomas (@cawfree)",
