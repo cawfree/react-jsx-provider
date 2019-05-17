@@ -86,7 +86,7 @@ export default class App extends React.Component {
           style={styles.container}
         >
           <ScriptComponent
-            script="Welcome"
+            script="<Welcome/>"
           />
         </View>
       </Provider>
