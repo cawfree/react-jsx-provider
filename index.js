@@ -7,7 +7,17 @@ const {
   satisfies,
 } = require('semver');
 
-const DynamicJsx = React.createContext(null);
+const DynamicJsx = React.createContext(
+  null,
+);
+
+const synthesizeWithError = (components, resolutionErrors, error) => ({
+  components,
+  resolutionErrors: [
+    ...resolutionErrors,
+    error,
+  ],
+});
 
 const extrapolate = (components, resolutionErrors, dependency, req = {}, pkg = {}) => {
   return Object.entries(((req.config || {})[dependency]) || {})
@@ -24,15 +34,13 @@ const extrapolate = (components, resolutionErrors, dependency, req = {}, pkg = {
             resolutionErrors,
           };
         }
-        return {
+        return synthesizeWithError(
           components,
-          resolutionErrors: [
-            ...resolutionErrors,
-            new ReferenceError(
-              `Failed to resolve a runtime implementation for "<${Component}/>".`,
-            ),
-          ],
-        };
+          resolutionErrors,
+          new ReferenceError(
+            `Failed to resolve a runtime implementation for "<${Component}/>".`,
+          ),
+        );
       },
       {
         components,
@@ -72,17 +80,29 @@ function synthesize(req = {}, pkg = {}) {
                 ],
               };
             }
+            return synthesizeWithError(
+              components,
+              resolutionErrors,
+              new ReferenceError(
+                `Failed to instantiate "${dependency}" due to unsatisfied package dependencies (request: "${reqVersion}", runtime: "${pkgVersion}").`,
+              ),
+            );
           }
-        }
-        return {
-          components,
-          resolutionErrors: [
-            ...resolutionErrors,
+          return synthesizeWithError(
+            components,
+            resolutionErrors,
             new ReferenceError(
-              `Failed to instantiate "${dependency}" at request version "${reqVersion}".`,
+              `Failed to instantiate "${dependency}" due to invalid package version "${pkgVersion}".`,
             ),
-          ],
-        };
+          );
+        }
+        return synthesizeWithError(
+          components,
+          resolutionErrors,
+          new ReferenceError(
+            `Failed to instantiate "${dependency}" at request version "${reqVersion}".`,
+          ),
+        );
       },
       {
         resolutionErrors: [],
@@ -117,7 +137,7 @@ export const withDynamicJsx = Consumer => class ThemeConsumer extends React.Comp
   }
 };
 
-export const ScriptProvider = withDynamicJsx(
+export const ScriptComponent = withDynamicJsx(
   ({ script, components, renderFailure, resolutionErrors, scripts, ...extraProps }) => {
     const jsx = scripts[script];
     const resolvedErrors = [
