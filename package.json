@@ -1,14 +1,22 @@
 {
   "name": "@cawfree/react-jsx-provider",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A React Provider for reliably rendering dependency-aware distributed JSX.",
   "main": "index.js",
   "repository": "https://github.com/Cawfree/react-jsx-provider",
   "author": "Alex Thomas (@cawfree)",
   "license": "MIT",
   "keywords": [
-    "react", "native", "react-native", "jsx", "provider", "dynamic"
+    "react",
+    "native",
+    "react-native",
+    "jsx",
+    "provider",
+    "dynamic"
   ],
+  "scripts": {
+    "test": "TERM=dumb jest --watch --verbose false"
+  },
   "private": false,
   "dependencies": {
     "react-jsx-parser": "^1.16.1",
@@ -17,5 +25,8 @@
   "peerDependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.8.6"
+  },
+  "devDependencies": {
+    "jest": "^24.8.0"
   }
 }

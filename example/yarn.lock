@@ -647,6 +647,14 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@cawfree/react-jsx-provider@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@cawfree/react-jsx-provider/-/react-jsx-provider-1.0.2.tgz#a446dbe71287f8821b1f9d4bfd88fd30b6b8ea05"
+  integrity sha512-u6sKJI3P3E5QPMJQJYpjHjJ1sYx22BfAqTbS64+l+fKUxoIkqR+M81Gcg0SP/ASjsXUWIWRGyfMLZ9wlJBv8oA==
+  dependencies:
+    react-jsx-parser "^1.16.1"
+    semver "^6.0.0"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.3.tgz#099139eaec7ebf07a27c1786a3ff64f39464d2ef"
