@@ -62,7 +62,7 @@ function synthesize(req = {}, pkg = {}) {
     .reduce(
       ({ components, resolutionErrors }, [dependency, reqVersion]) => {
         const pkgVersion = ((pkg.dependencies) || {})[dependency];
-        if (satisfies(coerce(reqVersion), pkgVersion)) {
+        if (satisfies(reqVersion, coerce(pkgVersion))) {
           const {
             components: extrapolatedComponents,
             resolutionErrors: extrapolatedResolutionErrors,

@@ -26,4 +26,15 @@ it('should determine version compatibility', function() {
       v4,
     ),
   ).toBeTruthy();
+
+  const v5 = '0.59.6';
+  const v6 = '>=0.59.6';
+
+  expect(
+    satisfies(
+      coerce(v5),
+      v6,
+    ),
+  ).toBeTruthy();
+
 });
