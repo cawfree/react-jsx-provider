@@ -27,7 +27,7 @@ it('should determine version compatibility', function() {
     ),
   ).toBeTruthy();
 
-  const v5 = '0.59.6';
+  const v5 = '^0.59.6';
   const v6 = '>=0.59.6';
 
   expect(
