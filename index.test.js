@@ -4,6 +4,7 @@ const {
   minVersion,
   valid,
   parse,
+  coerce,
 } = require('semver');
 
 it('should determine version compatibility', function() {
@@ -17,4 +18,12 @@ it('should determine version compatibility', function() {
     )
   )
     .toBeTruthy();
+  const v3 = '^1.2.3';
+  const v4 = '1.x || >=2.5.0 || 5.0.0 - 7.2.3';
+  expect(
+    satisfies(
+      coerce(v3),
+      v4,
+    ),
+  ).toBeTruthy();
 });

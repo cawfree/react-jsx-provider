@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import JsxParser from 'react-jsx-parser';
 
 const {
-  valid,
+  coerce,
   satisfies,
 } = require('semver');
 
@@ -61,46 +61,28 @@ function synthesize(req = {}, pkg = {}) {
   } = Object.entries(dependencies || {})
     .reduce(
       ({ components, resolutionErrors }, [dependency, reqVersion]) => {
-        if (valid(reqVersion)) {
-          const pkgVersion = ((pkg.dependencies) || {})[dependency];
-          if (valid(pkgVersion)) {
-            if (satisfies(reqVersion, pkgVersion)) {
-              const {
-                components: extrapolatedComponents,
-                resolutionErrors: extrapolatedResolutionErrors,
-              } = extrapolate(components, resolutionErrors, dependency, req, pkg);
-              return {
-                components: {
-                  ...components,
-                  ...extrapolatedComponents,
-                },
-                resolutionErrors: [
-                  ...resolutionErrors,
-                  ...extrapolatedResolutionErrors,
-                ],
-              };
-            }
-            return synthesizeWithError(
-              components,
-              resolutionErrors,
-              new ReferenceError(
-                `Failed to instantiate "${dependency}" due to unsatisfied package dependencies (request: "${reqVersion}", runtime: "${pkgVersion}").`,
-              ),
-            );
-          }
-          return synthesizeWithError(
-            components,
-            resolutionErrors,
-            new ReferenceError(
-              `Failed to instantiate "${dependency}" due to invalid package version "${pkgVersion}".`,
-            ),
-          );
+        const pkgVersion = ((pkg.dependencies) || {})[dependency];
+        if (satisfies(coerce(reqVersion), pkgVersion)) {
+          const {
+            components: extrapolatedComponents,
+            resolutionErrors: extrapolatedResolutionErrors,
+          } = extrapolate(components, resolutionErrors, dependency, req, pkg);
+          return {
+            components: {
+              ...components,
+              ...extrapolatedComponents,
+            },
+            resolutionErrors: [
+              ...resolutionErrors,
+              ...extrapolatedResolutionErrors,
+            ],
+          };
         }
         return synthesizeWithError(
           components,
           resolutionErrors,
           new ReferenceError(
-            `Failed to instantiate "${dependency}" at request version "${reqVersion}".`,
+            `Failed to instantiate "${dependency}" due to unsatisfied package dependencies (request: "${reqVersion}", runtime: "${pkgVersion}").`,
           ),
         );
       },

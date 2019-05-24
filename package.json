@@ -1,6 +1,6 @@
 {
   "name": "@cawfree/react-jsx-provider",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A React Provider for reliably rendering dependency-aware distributed JSX.",
   "main": "index.js",
   "repository": "https://github.com/Cawfree/react-jsx-provider",
