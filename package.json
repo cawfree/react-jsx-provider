@@ -19,7 +19,7 @@
   },
   "private": false,
   "dependencies": {
-    "react-jsx-parser": "^1.16.1",
+    "react-jsx-parser": "1.16.1",
     "semver": "^6.0.0"
   },
   "peerDependencies": {
