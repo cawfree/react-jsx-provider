@@ -119,8 +119,9 @@ export const withDynamicJsx = Consumer => class ThemeConsumer extends React.Comp
   }
 };
 
-export const ScriptComponent = withDynamicJsx(
-  ({ script, components, renderFailure, resolutionErrors, scripts, ...extraProps }) => {
+export const ScriptComponent = withDynamicJsx(class ScriptComponentImpl extends React.Component {
+  render() {
+    const { script, components, renderFailure, resolutionErrors, scripts, ...extraProps } = this.props;
     const jsx = scripts[script];
     const resolvedErrors = [
       ...resolutionErrors,
@@ -145,19 +146,29 @@ export const ScriptComponent = withDynamicJsx(
       );
     }
     return null;
-  },
-);
+  }
+});
 
-export default ({ request, runtime, renderFailure, children, ...extraProps }) => (
-  <DynamicJsx.Provider
-    value={{
-      ...synthesize(
-        request,
-        runtime,
-      ),
-      renderFailure,
-    }}
-  >
-    {children}
-  </DynamicJsx.Provider>
-);
+export default class DynamicJsxProvider extends React.Component {
+  // TODO: This requires enhancement.
+  shouldComponentUpdate(nextProps, nextState) {
+    const { request, runtime, renderFailure } = this.props;
+    return (request !== this.props.request) || (runtime !== this.props.runtime) || (renderFailure !== this.props.renderFailure);
+  }
+  render() {
+    const { request, runtime, renderFailure, children, ...extraProps } = this.props;
+    return (
+      <DynamicJsx.Provider
+        value={{
+          ...synthesize(
+            request,
+            runtime,
+          ),
+          renderFailure,
+        }}
+      >
+        {children}
+      </DynamicJsx.Provider>
+    );
+  }
+};
