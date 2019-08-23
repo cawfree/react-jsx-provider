@@ -49,7 +49,7 @@ const extrapolate = (components, resolutionErrors, dependency, req = {}, pkg = {
     );
 };
 
-function synthesize(req = {}, pkg = {}) {
+export function synthesize(req = {}, pkg = {}) {
   const {
     dependencies,
     config,
