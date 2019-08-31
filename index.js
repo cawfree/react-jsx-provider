@@ -152,8 +152,8 @@ export const ScriptComponent = withDynamicJsx(class ScriptComponentImpl extends 
 export default class DynamicJsxProvider extends React.Component {
   // TODO: This requires enhancement.
   shouldComponentUpdate(nextProps, nextState) {
-    const { request, runtime, renderFailure } = this.props;
-    return (request !== this.props.request) || (runtime !== this.props.runtime) || (renderFailure !== this.props.renderFailure);
+    const { request, runtime, renderFailure, extraData } = this.props;
+    return (request !== this.props.request) || (runtime !== this.props.runtime) || (renderFailure !== this.props.renderFailure) || (extraData !== this.props.extraData);
   }
   render() {
     const { request, runtime, renderFailure, children, ...extraProps } = this.props;
