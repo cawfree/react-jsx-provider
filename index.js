@@ -106,14 +106,24 @@ export const withDynamicJsx = Consumer => class ThemeConsumer extends React.Comp
       scripts,
       renderFailure,
       resolutionErrors,
+      bindings: globalBindings,
     } = this.context;
+    const {
+      bindings: localBindings,
+      ...extraProps
+    } = this.props;
+    const bindings = {
+      ...(bindings || {}),
+      ...(localBindings || {}),
+    };
     return (
       <Consumer
         components={components}
         scripts={scripts}
         resolutionErrors={resolutionErrors}
         renderFailure={renderFailure}
-        {...this.props}
+        bindings={bindings}
+        {...extraProps}
       />
     );
   }
@@ -156,7 +166,7 @@ export default class DynamicJsxProvider extends React.Component {
     return (request !== this.props.request) || (runtime !== this.props.runtime) || (renderFailure !== this.props.renderFailure) || (extraData !== this.props.extraData);
   }
   render() {
-    const { request, runtime, renderFailure, children, ...extraProps } = this.props;
+    const { request, runtime, renderFailure, children, bindings, ...extraProps } = this.props;
     return (
       <DynamicJsx.Provider
         value={{
@@ -164,6 +174,7 @@ export default class DynamicJsxProvider extends React.Component {
             request,
             runtime,
           ),
+          binding,
           renderFailure,
         }}
       >
