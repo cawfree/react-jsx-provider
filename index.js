@@ -113,7 +113,7 @@ export const withDynamicJsx = Consumer => class ThemeConsumer extends React.Comp
       ...extraProps
     } = this.props;
     const bindings = {
-      ...(bindings || {}),
+      ...(globalBindings || {}),
       ...(localBindings || {}),
     };
     return (
