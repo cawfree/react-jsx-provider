@@ -174,7 +174,7 @@ export default class DynamicJsxProvider extends React.Component {
             request,
             runtime,
           ),
-          binding,
+          bindings,
           renderFailure,
         }}
       >
