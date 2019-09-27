@@ -130,6 +130,21 @@ export const withDynamicJsx = Consumer => class ThemeConsumer extends React.Comp
 };
 
 export const ScriptComponent = withDynamicJsx(class ScriptComponentImpl extends React.Component {
+  static propTypes = {
+    shouldComponentUpdate: PropTypes.func,
+  };
+  static defaultProps = {
+    // XXX: Used to prevent excessive re-rendering.
+    //      Injected components should be capable of managing their own state.
+    shouldComponentUpdate: (nextProps, nextState) => false,
+  };
+  shouldComponentUpdate(nextProps, nextState) {
+    const { shouldComponentUpdate } = this.props;
+    return shouldComponentUpdate(
+      nextProps,
+      nextState,
+    );
+  }
   render() {
     const { script, components, renderFailure, resolutionErrors, scripts, ...extraProps } = this.props;
     const jsx = scripts[script];
